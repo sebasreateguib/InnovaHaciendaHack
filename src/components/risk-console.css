@@ -1,0 +1,357 @@
+.console {
+  position: relative;
+  padding: clamp(5rem, 12vh, 9rem) var(--gutter) clamp(4rem, 10vh, 7rem);
+  border-top: var(--rule);
+}
+
+.console__head {
+  max-width: 62rem;
+  margin-bottom: clamp(3rem, 7vh, 5rem);
+}
+
+.console__index {
+  color: var(--signal);
+  margin-right: 0.6rem;
+}
+
+.console__title {
+  margin: 1.25rem 0 0;
+  font-family: var(--display);
+  font-size: clamp(2rem, 5.2vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  max-width: 20ch;
+}
+
+.console__title em {
+  font-style: italic;
+  color: var(--signal);
+}
+
+.console__stamp {
+  margin: 1.5rem 0 0;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+/* ---- Métricas ---- */
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  border: var(--rule);
+  margin-bottom: clamp(2rem, 5vh, 3.5rem);
+}
+
+.metric {
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border-left: var(--rule);
+  transition: background 0.4s ease;
+}
+
+.metric:first-child {
+  border-left: none;
+}
+
+.metric:hover {
+  background: var(--ink-raised);
+}
+
+.metric__label {
+  margin: 0 0 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.metric__value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0 0 1.1rem;
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  line-height: 1;
+  color: var(--bone);
+}
+
+.metric__unit {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.metric__meter {
+  height: 2px;
+  background: var(--hairline);
+  overflow: hidden;
+}
+
+.metric__meter span {
+  display: block;
+  height: 100%;
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.metric--signal .metric__meter span {
+  background: var(--signal);
+}
+.metric--critical .metric__meter span {
+  background: var(--critical);
+}
+.metric--contained .metric__meter span {
+  background: var(--contained);
+}
+
+.metric__note {
+  margin: 0.9rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--bone-dim);
+}
+
+/* ---- Paneles ---- */
+
+.console__split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.panel {
+  border: var(--rule);
+  background: var(--ink-raised);
+}
+
+.panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem clamp(1.25rem, 2.5vw, 1.75rem);
+  border-bottom: var(--rule);
+}
+
+.panel__title {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.panel__count,
+.panel__live {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+/* ---- Tabla ---- */
+
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.ledger th,
+.ledger td {
+  padding: 1rem clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.ledger thead th {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  padding-block: 0.75rem;
+  border-bottom: var(--rule);
+}
+
+.ledger tbody tr {
+  border-bottom: var(--rule);
+  transition: background 0.3s ease;
+}
+
+.ledger tbody tr:last-child {
+  border-bottom: none;
+}
+
+.ledger tbody tr:hover {
+  background: var(--ink-card);
+}
+
+.ledger__entity {
+  display: block;
+  color: var(--bone);
+}
+
+.ledger__sector {
+  display: block;
+  margin-top: 0.2rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.ledger__score {
+  font-size: 1.0625rem;
+  margin-right: 0.5rem;
+}
+
+.ledger__trend {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+}
+
+.ledger__trend--critical {
+  color: var(--critical);
+}
+.ledger__trend--signal {
+  color: var(--signal);
+}
+.ledger__trend--contained {
+  color: var(--contained);
+}
+
+.ledger__date {
+  font-size: 0.75rem;
+  color: var(--bone-dim);
+  white-space: nowrap;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.chip--critical {
+  color: var(--critical);
+  background: var(--critical-dim);
+}
+.chip--signal {
+  color: var(--signal);
+  background: var(--signal-dim);
+}
+.chip--contained {
+  color: var(--contained);
+  background: var(--contained-dim);
+}
+
+/* ---- Feed ---- */
+
+.feed {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feed__item {
+  position: relative;
+  padding: 1.15rem clamp(1.25rem, 2.5vw, 1.75rem) 1.15rem
+    calc(clamp(1.25rem, 2.5vw, 1.75rem) + 3px);
+  border-bottom: var(--rule);
+}
+
+.feed__item:last-child {
+  border-bottom: none;
+}
+
+/* Filo de color a la izquierda en lugar de un icono genérico */
+.feed__item::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+}
+
+.feed__item--critical::before {
+  background: var(--critical);
+}
+.feed__item--signal::before {
+  background: var(--signal);
+}
+.feed__item--contained::before {
+  background: var(--contained);
+}
+
+.feed__time {
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  color: var(--bone-faint);
+}
+
+.feed__title {
+  margin: 0.4rem 0 0.3rem;
+  font-size: 0.9375rem;
+  color: var(--bone);
+}
+
+.feed__detail {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+
+@media (max-width: 980px) {
+  .console__split {
+    grid-template-columns: 1fr;
+  }
+
+  .ledger thead {
+    display: none;
+  }
+
+  .ledger tbody tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.4rem 1rem;
+    padding-block: 0.5rem;
+  }
+
+  .ledger th,
+  .ledger td {
+    padding-block: 0.35rem;
+  }
+
+  .ledger tbody th {
+    grid-column: 1 / -1;
+  }
+
+  .ledger__date {
+    text-align: right;
+  }
+}
+
+/* Procedencia de cada hallazgo: sin la cita, la alerta no es auditable */
+.feed__source {
+  margin: 0.55rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}

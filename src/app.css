@@ -1,0 +1,44 @@
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 1rem 2.5rem;
+  padding: 2.5rem var(--gutter);
+  border-top: var(--rule);
+}
+
+.foot__mark {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  color: var(--bone);
+}
+
+.foot__note {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.foot__note:last-child {
+  margin-left: auto;
+}
+
+.foot__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* El navbar fijo taparía el encabezado de cada sección al saltar por ancla */
+:target,
+section[id] {
+  scroll-margin-top: 5rem;
+}

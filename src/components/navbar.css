@@ -1,0 +1,118 @@
+.nav {
+  --nav-halo: 0 1px 2px rgba(6, 7, 9, 0.6), 0 2px 22px rgba(6, 7, 9, 0.75);
+
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.1rem var(--gutter);
+  border-bottom: 1px solid transparent;
+  background: linear-gradient(180deg, rgba(10, 11, 13, 0.62) 0%, transparent 100%);
+  transition:
+    background 0.5s ease,
+    border-color 0.5s ease,
+    backdrop-filter 0.5s ease;
+}
+
+/* Sobre el video va limpio; al bajar se asienta sobre vidrio */
+.nav--scrolled {
+  background: rgba(10, 11, 13, 0.72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom-color: var(--hairline);
+}
+
+.nav__mark {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: #f2efe9;
+  text-shadow: var(--nav-halo);
+}
+
+.nav__mark-logo {
+  flex: none;
+  align-self: center;
+  transition: opacity 0.35s ease;
+}
+
+.nav__mark:hover .nav__mark-logo {
+  opacity: 0.75;
+}
+
+.nav__mark-word {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+}
+
+.nav__links {
+  display: flex;
+  gap: 2.2rem;
+}
+
+.nav__link {
+  position: relative;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: #cbc7bf;
+  text-shadow: var(--nav-halo);
+  text-decoration: none;
+  padding-block: 0.35rem;
+  transition: color 0.3s ease;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: var(--signal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.nav__link:hover {
+  color: #f2efe9;
+}
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav__aside {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav__status {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #cbc7bf;
+  text-shadow: var(--nav-halo);
+  white-space: nowrap;
+}
+
+.nav__cta {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.6875rem;
+}
+
+@media (max-width: 1080px) {
+  .nav__links,
+  .nav__status {
+    display: none;
+  }
+}

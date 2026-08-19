@@ -1,0 +1,483 @@
+/* ============================================================
+   Primitivas de sección — mismo compás editorial para todo
+   el cuerpo de la landing.
+   ============================================================ */
+
+.section {
+  position: relative;
+  padding: clamp(5rem, 12vh, 9rem) var(--gutter);
+  border-top: var(--rule);
+}
+
+.section__head {
+  max-width: 64rem;
+  margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
+}
+
+.section__index {
+  color: var(--signal);
+  margin-right: 0.6rem;
+}
+
+.section__title {
+  margin: 1.25rem 0 0;
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 4.6vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  max-width: 22ch;
+}
+
+.section__title em {
+  font-style: italic;
+  color: var(--signal);
+}
+
+.section__lede {
+  margin: 1.5rem 0 0;
+  max-width: 58ch;
+  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
+  line-height: 1.65;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+
+/* ---------- 01 · Tesis: los dos mundos de dato ---------- */
+
+.thesis__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: var(--rule);
+}
+
+.thesis__col {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-left: var(--rule);
+}
+
+.thesis__col:first-child {
+  border-left: none;
+}
+
+.thesis__kind {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.thesis__kind::before {
+  content: '';
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.thesis__name {
+  margin: 0 0 1rem;
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  line-height: 1.1;
+}
+
+.thesis__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.thesis__list li {
+  padding: 0.65rem 0;
+  border-top: var(--rule);
+  font-size: 0.875rem;
+  color: var(--bone-dim);
+}
+
+.thesis__tool {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+/* El veredicto: barra ancha que corta la sección */
+.thesis__verdict {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  margin-top: -1px;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  border: var(--rule);
+  background: var(--signal-dim);
+}
+
+.thesis__verdict p {
+  margin: 0;
+  flex: 1 1 30ch;
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+  line-height: 1.25;
+  color: var(--bone);
+}
+
+.thesis__verdict span {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+/* ---------- 02 · Arquitectura ---------- */
+
+.agents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  border: var(--rule);
+  border-bottom: none;
+}
+
+.agent {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-left: var(--rule);
+  border-bottom: var(--rule);
+  transition: background 0.4s ease;
+}
+
+.agent:hover {
+  background: var(--ink-raised);
+}
+
+.agent__top {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.agent__num {
+  font-family: var(--display);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--signal);
+}
+
+.agent__name {
+  font-size: 1.0625rem;
+  color: var(--bone);
+}
+
+.agent__role {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.agent__fn {
+  margin: 0 0 1.25rem;
+  font-size: 0.875rem;
+  color: var(--bone-dim);
+}
+
+.agent__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agent__list li {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 1.1rem;
+  border-top: var(--rule);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--bone-dim);
+}
+
+.agent__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.05rem;
+  width: 4px;
+  height: 1px;
+  background: var(--signal);
+}
+
+/* Orquestador: bloque distinto, no una tarjeta más */
+.supervisor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  border: var(--rule);
+  border-top: none;
+  background: var(--ink-raised);
+}
+
+.supervisor__title {
+  margin: 0.9rem 0 1rem;
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+  line-height: 1.1;
+}
+
+.supervisor__copy {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+
+.supervisor__diagram {
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- 03 · Triggers ---------- */
+
+.triggers {
+  border: var(--rule);
+}
+
+.trigger {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-top: var(--rule);
+  transition: background 0.4s ease;
+}
+
+.trigger:first-child {
+  border-top: none;
+}
+
+.trigger:hover {
+  background: var(--ink-raised);
+}
+
+.trigger__kind {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+}
+
+.trigger__num {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  color: var(--signal);
+}
+
+.trigger__name {
+  font-size: 1rem;
+  color: var(--bone);
+}
+
+.trigger__mode {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.trigger__flow,
+.trigger__out {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+
+.trigger__label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.trigger__out .trigger__label {
+  color: var(--signal);
+}
+
+.trigger__flow .trigger__label {
+  color: var(--bone-faint);
+}
+
+/* ---------- 05 · Stack ---------- */
+
+.stack {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  border: var(--rule);
+}
+
+.stack th,
+.stack td {
+  padding: 1.15rem clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  vertical-align: top;
+}
+
+.stack thead th {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  padding-block: 0.85rem;
+  border-bottom: var(--rule);
+}
+
+.stack tbody tr {
+  border-top: var(--rule);
+  transition: background 0.35s ease;
+}
+
+.stack tbody tr:hover {
+  background: var(--ink-raised);
+}
+
+.stack__component {
+  color: var(--bone);
+  white-space: nowrap;
+}
+
+.stack__tech {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--signal);
+}
+
+.stack__why {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--bone-dim);
+  max-width: 44ch;
+}
+
+/* ---------- 06 · Demo ---------- */
+
+.demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  border: var(--rule);
+  border-right: none;
+}
+
+.step {
+  position: relative;
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  border-right: var(--rule);
+}
+
+.step__num {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 0.85;
+  color: var(--hairline-strong);
+  margin-bottom: 1.25rem;
+  transition: color 0.5s ease;
+}
+
+.step:hover .step__num {
+  color: var(--signal);
+}
+
+.step__title {
+  margin: 0 0 0.75rem;
+  font-size: 1.0625rem;
+  color: var(--bone);
+}
+
+.step__copy {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+
+.demo__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: -1px;
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  border: var(--rule);
+  background: var(--ink-raised);
+}
+
+.demo__cta p {
+  margin: 0;
+  flex: 1 1 26ch;
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  line-height: 1.25;
+}
+
+/* ---------- Adaptativo ---------- */
+
+@media (max-width: 900px) {
+  .thesis__split,
+  .supervisor {
+    grid-template-columns: 1fr;
+  }
+
+  .thesis__col {
+    border-left: none;
+    border-top: var(--rule);
+  }
+
+  .thesis__col:first-child {
+    border-top: none;
+  }
+
+  .supervisor {
+    gap: 2rem;
+  }
+
+  .trigger {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .stack thead {
+    display: none;
+  }
+
+  .stack tbody tr {
+    display: block;
+    padding-block: 0.75rem;
+  }
+
+  .stack th,
+  .stack td {
+    display: block;
+    padding-block: 0.3rem;
+  }
+}
