@@ -4,6 +4,30 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import './hero.css';
 
+/* Anotaciones sobre el metraje: leen como acotaciones de plano y usan las
+   mismas partidas que la consola, así el hero no inventa cifras propias.
+   x/y van en porcentaje del área libre entre la franja superior y el bloque. */
+const NOTES = [
+  {
+    code: 'P-04.2',
+    partida: 'Estructura',
+    value: '+20.4%',
+    note: 'Concreto premezclado',
+    tone: 'critical',
+    x: '17%',
+    y: '16%',
+  },
+  {
+    code: 'P-08.1',
+    partida: 'Acabados',
+    value: '+6.4%',
+    note: 'Interiores y pintura',
+    tone: 'signal',
+    x: '63%',
+    y: '58%',
+  },
+];
+
 const TICKER = [
   { label: 'Presupuesto de obra', value: '$4.82M', delta: '68.4% ejec.', tone: 'contained' },
   { label: 'Desviación acumulada', value: '+7.4%', delta: '↑ 2.1', tone: 'critical' },
@@ -82,13 +106,60 @@ export function Hero() {
           <div className="hero__mesh" aria-hidden="true" />
 
           <div data-parallax-layer="3" className="hero__content">
+            {/* Franja superior: el eyebrow sube aquí y el cajetín ocupa la
+                esquina que antes quedaba vacía, con la ficha de la obra que
+                se audita — mismo formato que el cajetín de un plano. */}
+            <div className="hero__topbar">
+              <p className="eyebrow hero__eyebrow">
+                <span className="hero__rule" aria-hidden="true" />
+                Presupuesto vivo · Del ERP a la bitácora de campo
+              </p>
+
+              <div className="hero__plate">
+                <p className="hero__plate-head">
+                  <span className="hero__plate-pulse" aria-hidden="true" />
+                  Obra en observación
+                </p>
+                <dl className="hero__plate-specs">
+                  <div>
+                    <dt>Proyecto</dt>
+                    <dd>Edificio Panorama · 10 pisos</dd>
+                  </div>
+                  <div>
+                    <dt>Contrato</dt>
+                    <dd className="mono-num">$4.82M</dd>
+                  </div>
+                  <div>
+                    <dt>Corte</dt>
+                    <dd className="mono-num">19 ago 2026 · 09:45</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+
+            {/* Banda intermedia: acota el metraje en lugar de dejarlo mudo */}
+            <div className="hero__notes" aria-hidden="true">
+              {NOTES.map((n) => (
+                <div
+                  className={`hero__note hero__note--${n.tone}`}
+                  key={n.code}
+                  style={{ left: n.x, top: n.y }}
+                >
+                  <span className="hero__note-pin" />
+                  <span className="hero__note-body">
+                    <span className="hero__note-top">
+                      <span className="hero__note-code">{n.code}</span>
+                      <span className="hero__note-partida">{n.partida}</span>
+                      <span className="hero__note-value mono-num">{n.value}</span>
+                    </span>
+                    <span className="hero__note-detail">{n.note}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+
             <div className="hero__grid">
               <div className="hero__lede">
-                <p className="eyebrow hero__eyebrow">
-                  <span className="hero__rule" aria-hidden="true" />
-                  Presupuesto vivo · Del ERP a la bitácora de campo
-                </p>
-
                 {/* Entrada de la frase: el wordmark es la última palabra
                     ("El control de obra toma FORMA"), así que va pegado al
                     bloque y con el verbo en ámbar para tender el puente. */}

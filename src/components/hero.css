@@ -85,16 +85,31 @@
   mask-image: radial-gradient(105% 78% at 62% 34%, #000 0%, transparent 74%);
 }
 
+/* Tres franjas: ficha arriba, acotaciones sobre el metraje en medio y el
+   bloque abajo. Antes era un solo bloque anclado al pie y los dos tercios
+   superiores quedaban en video mudo. */
 .hero__content {
   position: absolute;
   inset: 0;
   z-index: 2;
-  display: flex;
-  align-items: flex-end;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(1rem, 2.5vh, 2rem);
   /* El navbar es fijo (~63px sin scroll) y no reserva espacio en el flujo:
      si el contenido no lo descuenta, se le mete debajo */
   padding: clamp(5rem, 11vh, 7rem) var(--gutter) clamp(7.5rem, 15vh, 10.5rem);
   will-change: transform;
+}
+
+.hero__topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 5vw, 4rem);
+}
+
+.hero__grid {
+  align-self: end;
 }
 
 .hero__grid {
@@ -113,7 +128,8 @@
   display: flex;
   align-items: flex-start;
   gap: 0.9rem;
-  margin: 0 0 clamp(0.8rem, 2.2vh, 1.35rem);
+  margin: 0;
+  max-width: 42ch;
   color: var(--on-video-dim);
   text-shadow: var(--halo);
   animation: rise 0.9s var(--ease) both;
@@ -129,6 +145,212 @@
   background: linear-gradient(90deg, var(--tech), transparent);
   transform-origin: left;
   animation: wipe 1.1s var(--ease) 0.15s both;
+}
+
+/* ---- Cajetín de obra ----
+
+   La ficha del proyecto auditado, en la esquina que antes estaba vacía. Se
+   compone como el cajetín de un plano: filo superior en ámbar, etiquetas en
+   mono y valores alineados a la derecha. */
+
+.hero__plate {
+  flex: none;
+  min-width: min(19rem, 42vw);
+  padding: 0.95rem 1.1rem 1rem;
+  border: 1px solid var(--hairline-strong);
+  border-top: 1px solid var(--tech-line);
+  background: rgba(8, 10, 14, 0.66);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: var(--bevel);
+  animation: rise 1.1s var(--ease) 0.3s both;
+}
+
+.hero__plate-head {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0 0 0.8rem;
+  padding-bottom: 0.7rem;
+  border-bottom: var(--rule);
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--on-video-dim);
+}
+
+/* Punto vivo: la ficha es una lectura en curso, no un dato impreso */
+.hero__plate-pulse {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--contained);
+  box-shadow: 0 0 0 3px rgba(79, 209, 165, 0.16);
+  animation: plate-pulse 2.4s var(--ease) infinite;
+}
+
+@keyframes plate-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.hero__plate-specs {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.hero__plate-specs > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hero__plate-specs dt {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-video-faint);
+}
+
+.hero__plate-specs dd {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: right;
+  color: var(--on-video);
+}
+
+/* ---- Acotaciones sobre el metraje ----
+
+   Cada nota es un pin con línea de guía y etiqueta: señala una partida del
+   plano real igual que una acotación señala una cota. Se posicionan en
+   porcentaje sobre la banda libre, así siguen encajando al cambiar el alto. */
+
+.hero__notes {
+  position: relative;
+}
+
+.hero__note {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  animation: rise 1.1s var(--ease) both;
+}
+
+.hero__note:nth-child(1) {
+  animation-delay: 0.65s;
+}
+
+.hero__note:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+/* Pin: punto de anclaje + guía horizontal hacia la etiqueta */
+.hero__note-pin {
+  position: relative;
+  flex: none;
+  width: clamp(1.75rem, 4vw, 3.25rem);
+  height: 7px;
+  margin-top: 0.3rem;
+  border-bottom: 1px solid currentColor;
+}
+
+.hero__note-pin::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 10px currentColor;
+}
+
+/* Anillo que se abre desde el punto: marca la nota como lectura en vivo */
+.hero__note-pin::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  bottom: -7px;
+  width: 13px;
+  height: 13px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  animation: note-ping 3s var(--ease) infinite;
+}
+
+@keyframes note-ping {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.4);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+.hero__note-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-left: 0.7rem;
+  border-left: 1px solid currentColor;
+}
+
+.hero__note-top {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: var(--halo);
+}
+
+.hero__note-code {
+  color: currentColor;
+}
+
+.hero__note-partida {
+  color: var(--on-video);
+}
+
+.hero__note-value {
+  color: currentColor;
+}
+
+.hero__note-detail {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-video-faint);
+  text-shadow: var(--halo);
+}
+
+.hero__note--critical {
+  color: var(--critical);
+}
+
+.hero__note--signal {
+  color: var(--signal);
 }
 
 /* Arranque de la frase que remata el wordmark: "El control de obra toma
@@ -351,11 +573,19 @@
   animation: rise 1.1s var(--ease) 0.4s both;
 }
 
+/* En display y no en la sans de texto: era el único bloque del hero en Inter,
+   entre eyebrow, cajetín, acotaciones y cinta, todos en mono. Space Grotesk lo
+   lee como bajada del wordmark en lugar de como párrafo suelto. Al cambiar de
+   familia sube un punto el cuerpo y baja la interlínea: la display tiene la x
+   más alta y con 1.7 se abría de más. */
 .hero__copy {
   margin: 0 0 clamp(1.5rem, 3vh, 2.25rem);
-  max-width: 42ch;
-  font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
-  line-height: 1.7;
+  max-width: 38ch;
+  font-family: var(--display);
+  font-size: clamp(1rem, 1.25vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.014em;
   color: var(--on-video-dim);
   text-shadow: var(--halo);
   text-wrap: pretty;
@@ -498,16 +728,38 @@
   }
 }
 
+/* Las acotaciones necesitan ancho libre a los lados del bloque: por debajo
+   de 1100px chocarían con la columna de texto. */
+@media (max-width: 1100px) {
+  .hero__notes {
+    display: none;
+  }
+}
+
 @media (max-width: 900px) {
   .hero__grid {
     grid-template-columns: 1fr;
     align-items: start;
   }
 
+  /* Sin acotaciones quedan dos franjas: se centran en lugar de separarse a
+     los extremos del cuadro. */
   .hero__content {
-    align-items: center;
+    grid-template-rows: auto auto;
+    align-content: center;
     padding-top: clamp(6rem, 13vh, 7.5rem);
     padding-bottom: clamp(11rem, 26vh, 14rem);
+  }
+
+  .hero__topbar {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* A una columna el cuadro ya va justo entre navbar y cinta: el cajetín
+     empujaría el bloque fuera. Sus cifras las repite la cinta de abajo. */
+  .hero__plate {
+    display: none;
   }
 
   /* A una columna el contenido pide ~417px y la cinta otros ~165px. Con
