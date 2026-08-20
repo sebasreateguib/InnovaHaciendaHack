@@ -55,8 +55,9 @@ function SupervisorDiagram() {
         y={y}
         width="150"
         height="34"
-        fill={accent ? 'var(--signal-dim)' : 'transparent'}
-        stroke={accent ? 'var(--signal)' : 'var(--hairline-strong)'}
+        rx="3"
+        fill={accent ? 'var(--tech-dim)' : 'rgba(148,163,184,0.04)'}
+        stroke={accent ? 'var(--tech)' : 'var(--hairline-strong)'}
       />
       <text
         x={x + 75}
@@ -64,8 +65,8 @@ function SupervisorDiagram() {
         textAnchor="middle"
         fontFamily="var(--mono)"
         fontSize="9"
-        letterSpacing="1.6"
-        fill={accent ? 'var(--signal)' : 'var(--bone-dim)'}
+        letterSpacing="1.4"
+        fill={accent ? 'var(--tech)' : 'var(--bone-dim)'}
       >
         {label}
       </text>
@@ -80,12 +81,22 @@ function SupervisorDiagram() {
       role="img"
       aria-label="Flujo: el evento entra al orquestador, que llama en paralelo al agente cuantitativo y al investigador, une los hallazgos y pide el impacto al predictor."
     >
+      {/* Trazo base: la topología del grafo, siempre visible */}
       <g stroke="var(--hairline-strong)" strokeWidth="1">
-        {/* entrada → orquestador */}
         <path d="M200 22 V44" />
-        {/* orquestador → rama paralela */}
         <path d="M200 78 V96 M95 96 H305 M95 96 V114 M305 96 V114" />
-        {/* rama paralela → predictor */}
+        <path d="M95 148 V166 M305 148 V166 M95 166 H305 M200 166 V184" />
+      </g>
+
+      {/* Trazo animado encima: el mismo recorrido, en cian y con pulso */}
+      <g
+        className="supervisor__flow"
+        stroke="var(--tech)"
+        strokeWidth="1"
+        opacity="0.75"
+      >
+        <path d="M200 22 V44" />
+        <path d="M200 78 V96 M95 96 H305 M95 96 V114 M305 96 V114" />
         <path d="M95 148 V166 M305 148 V166 M95 166 H305 M200 166 V184" />
       </g>
 
@@ -95,7 +106,7 @@ function SupervisorDiagram() {
         textAnchor="middle"
         fontFamily="var(--mono)"
         fontSize="8.5"
-        letterSpacing="1.8"
+        letterSpacing="1.6"
         fill="var(--bone-faint)"
       >
         EVENTO · CONSULTA DEL CFO
@@ -112,7 +123,7 @@ function SupervisorDiagram() {
         textAnchor="middle"
         fontFamily="var(--mono)"
         fontSize="8.5"
-        letterSpacing="1.8"
+        letterSpacing="1.6"
         fill="var(--bone-faint)"
       >
         RECOMENDACIÓN DIRECTIVA
@@ -124,7 +135,7 @@ function SupervisorDiagram() {
 export function Architecture() {
   return (
     <section className="section" id="arquitectura">
-      <header className="section__head">
+      <header className="section__head" data-reveal>
         <p className="eyebrow">
           <span className="section__index">02</span> Arquitectura
         </p>
@@ -138,39 +149,41 @@ export function Architecture() {
         </p>
       </header>
 
-      <div className="agents">
-        {AGENTS.map((a) => (
-          <article className="agent" key={a.num}>
-            <div className="agent__top">
-              <span className="agent__num">{a.num}</span>
-              <span>
-                <span className="agent__name">{a.name}</span>
-                <span className="agent__role">{a.role}</span>
-              </span>
-            </div>
-            <p className="agent__fn">{a.fn}</p>
-            <ul className="agent__list">
-              {a.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-
-      <div className="supervisor">
-        <div>
-          <p className="eyebrow">Supervisor graph</p>
-          <h3 className="supervisor__title">Orquestador central</h3>
-          <p className="supervisor__copy">
-            Controla el flujo de deliberación. Recibe el evento de disparo —una
-            factura con sobrecosto o una consulta del CFO—, llama en paralelo al
-            Cuantitativo y al Investigador, une sus hallazgos, solicita el
-            cálculo de impacto al Predictor y entrega una sola recomendación
-            directiva consolidada.
-          </p>
+      <div className="block" data-reveal>
+        <div className="agents">
+          {AGENTS.map((a) => (
+            <article className="agent" key={a.num}>
+              <div className="agent__top">
+                <span className="agent__num">{a.num}</span>
+                <span>
+                  <span className="agent__name">{a.name}</span>
+                  <span className="agent__role">{a.role}</span>
+                </span>
+              </div>
+              <p className="agent__fn">{a.fn}</p>
+              <ul className="agent__list">
+                {a.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
-        <SupervisorDiagram />
+
+        <div className="supervisor">
+          <div>
+            <p className="eyebrow">Supervisor graph</p>
+            <h3 className="supervisor__title">Orquestador central</h3>
+            <p className="supervisor__copy">
+              Controla el flujo de deliberación. Recibe el evento de disparo
+              —una factura con sobrecosto o una consulta del CFO—, llama en
+              paralelo al Cuantitativo y al Investigador, une sus hallazgos,
+              solicita el cálculo de impacto al Predictor y entrega una sola
+              recomendación directiva consolidada.
+            </p>
+          </div>
+          <SupervisorDiagram />
+        </div>
       </div>
     </section>
   );

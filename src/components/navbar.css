@@ -1,5 +1,5 @@
 .nav {
-  --nav-halo: 0 1px 2px rgba(6, 7, 9, 0.6), 0 2px 22px rgba(6, 7, 9, 0.75);
+  --nav-halo: 0 1px 2px rgba(4, 5, 8, 0.62), 0 2px 22px rgba(4, 5, 8, 0.78);
 
   position: fixed;
   inset: 0 0 auto 0;
@@ -8,21 +8,44 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  padding: 1.1rem var(--gutter);
+  padding: 1rem var(--gutter);
   border-bottom: 1px solid transparent;
-  background: linear-gradient(180deg, rgba(10, 11, 13, 0.62) 0%, transparent 100%);
+  background: linear-gradient(180deg, rgba(6, 7, 10, 0.68) 0%, transparent 100%);
   transition:
-    background 0.5s ease,
-    border-color 0.5s ease,
-    backdrop-filter 0.5s ease;
+    background var(--base) var(--ease),
+    border-color var(--base) var(--ease),
+    padding var(--base) var(--ease);
 }
 
 /* Sobre el video va limpio; al bajar se asienta sobre vidrio */
 .nav--scrolled {
-  background: rgba(10, 11, 13, 0.72);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border-bottom-color: var(--hairline);
+  padding-block: 0.75rem;
+  background: rgba(8, 10, 14, 0.74);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-bottom-color: var(--hairline-strong);
+  box-shadow: var(--bevel);
+}
+
+/* Hilo cian bajo el borde: aparece solo cuando la barra se asienta */
+.nav::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 -1px 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--tech-line) 30%,
+    var(--tech-line) 70%,
+    transparent
+  );
+  opacity: 0;
+  transition: opacity var(--base) var(--ease);
+}
+
+.nav--scrolled::after {
+  opacity: 1;
 }
 
 .nav__mark {
@@ -30,83 +53,93 @@
   align-items: center;
   gap: 0.7rem;
   text-decoration: none;
-  color: #f2efe9;
+  color: var(--bone);
   text-shadow: var(--nav-halo);
 }
 
 .nav__mark-logo {
   flex: none;
   align-self: center;
-  transition: opacity 0.35s ease;
+  transition:
+    opacity var(--base) var(--ease),
+    transform var(--base) var(--ease);
 }
 
 .nav__mark:hover .nav__mark-logo {
-  opacity: 0.75;
+  opacity: 0.8;
+  transform: translateY(-1px);
 }
 
 .nav__mark-word {
-  font-family: var(--mono);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
+  font-family: var(--display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
 }
 
 .nav__links {
   display: flex;
-  gap: 2.2rem;
+  gap: 0.35rem;
 }
 
 .nav__link {
   position: relative;
   font-family: var(--mono);
   font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  color: #cbc7bf;
+  letter-spacing: 0.06em;
+  color: var(--bone-dim);
   text-shadow: var(--nav-halo);
   text-decoration: none;
-  padding-block: 0.35rem;
-  transition: color 0.3s ease;
-}
-
-.nav__link::after {
-  content: '';
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 1px;
-  background: var(--signal);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.3, 1);
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--r-sm);
+  transition:
+    color var(--fast) var(--ease),
+    background var(--fast) var(--ease);
 }
 
 .nav__link:hover {
-  color: #f2efe9;
+  color: var(--tech);
+  background: var(--tech-dim);
 }
-.nav__link:hover::after {
-  transform: scaleX(1);
+
+/* Guion de terminal: aparece al pasar, sin desplazar el texto */
+.nav__link::before {
+  content: '›';
+  position: absolute;
+  left: 0.15rem;
+  opacity: 0;
+  color: var(--tech);
+  transition: opacity var(--fast) var(--ease);
+}
+
+.nav__link:hover::before {
+  opacity: 1;
 }
 
 .nav__aside {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .nav__status {
   display: flex;
   align-items: center;
   gap: 0.55rem;
+  padding: 0.4rem 0.7rem;
+  border: var(--rule);
+  border-radius: 999px;
+  background: rgba(79, 209, 165, 0.06);
   font-family: var(--mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #cbc7bf;
-  text-shadow: var(--nav-halo);
+  color: var(--bone-dim);
   white-space: nowrap;
 }
 
 .nav__cta {
-  padding: 0.6rem 1.1rem;
+  padding: 0.55rem 1rem;
   font-size: 0.6875rem;
 }
 

@@ -150,7 +150,7 @@ const SEVERITY_LABEL: Record<Severity, string> = {
 export function RiskConsole() {
   return (
     <section className="console" id="consola">
-      <header className="console__head">
+      <header className="console__head" data-reveal>
         <p className="eyebrow">
           <span className="console__index">04</span> La consola
         </p>
@@ -162,7 +162,7 @@ export function RiskConsole() {
         </p>
       </header>
 
-      <div className="metrics">
+      <div className="metrics" data-reveal>
         {METRICS.map((m) => (
           <article className={`metric metric--${m.tone}`} key={m.label}>
             <p className="metric__label">{m.label}</p>
@@ -178,7 +178,7 @@ export function RiskConsole() {
         ))}
       </div>
 
-      <div className="console__split">
+      <div className="console__split" data-reveal>
         <div className="panel">
           <div className="panel__head">
             <h3 className="panel__title">Partidas bajo vigilancia</h3>

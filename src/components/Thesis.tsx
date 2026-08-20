@@ -26,7 +26,7 @@ const WORLDS = [
 export function Thesis() {
   return (
     <section className="section" id="tesis">
-      <header className="section__head">
+      <header className="section__head" data-reveal>
         <p className="eyebrow">
           <span className="section__index">01</span> La tesis
         </p>
@@ -40,22 +40,24 @@ export function Thesis() {
         </p>
       </header>
 
-      <div className="thesis__split">
-        {WORLDS.map((w) => (
-          <article className="thesis__col" key={w.kind}>
-            <p className="thesis__kind">{w.kind}</p>
-            <h3 className="thesis__name">{w.name}</h3>
-            <ul className="thesis__list">
-              {w.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            <span className="thesis__tool">Herramienta · {w.tool}</span>
-          </article>
-        ))}
+      <div className="block" data-reveal>
+        <div className="thesis__split">
+          {WORLDS.map((w) => (
+            <article className="thesis__col" key={w.kind}>
+              <p className="thesis__kind">{w.kind}</p>
+              <h3 className="thesis__name">{w.name}</h3>
+              <ul className="thesis__list">
+                {w.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <span className="thesis__tool">{w.tool}</span>
+            </article>
+          ))}
+        </div>
       </div>
 
-      <div className="thesis__verdict">
+      <div className="thesis__verdict" data-reveal>
         <p>
           Un RAG vectorial puro comete errores matemáticos graves. Por eso el
           cómputo va por SQL y la causa por vectores.

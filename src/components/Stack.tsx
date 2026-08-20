@@ -31,7 +31,7 @@ const STACK = [
 export function Stack() {
   return (
     <section className="section" id="stack">
-      <header className="section__head">
+      <header className="section__head" data-reveal>
         <p className="eyebrow">
           <span className="section__index">05</span> Stack
         </p>
@@ -44,26 +44,28 @@ export function Stack() {
         </p>
       </header>
 
-      <table className="stack">
-        <thead>
-          <tr>
-            <th scope="col">Componente</th>
-            <th scope="col">Tecnología</th>
-            <th scope="col">Propósito en el demo</th>
-          </tr>
-        </thead>
-        <tbody>
-          {STACK.map((s) => (
-            <tr key={s.component}>
-              <th scope="row" className="stack__component">
-                {s.component}
-              </th>
-              <td className="stack__tech">{s.tech}</td>
-              <td className="stack__why">{s.why}</td>
+      <div className="block block--scroll" data-reveal>
+        <table className="stack">
+          <thead>
+            <tr>
+              <th scope="col">Componente</th>
+              <th scope="col">Tecnología</th>
+              <th scope="col">Propósito en el demo</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {STACK.map((s) => (
+              <tr key={s.component}>
+                <th scope="row" className="stack__component">
+                  {s.component}
+                </th>
+                <td className="stack__tech">{s.tech}</td>
+                <td className="stack__why">{s.why}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   );
 }

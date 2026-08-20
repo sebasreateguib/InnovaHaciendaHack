@@ -30,7 +30,7 @@ const TRIGGERS = [
 export function Triggers() {
   return (
     <section className="section" id="triggers">
-      <header className="section__head">
+      <header className="section__head" data-reveal>
         <p className="eyebrow">
           <span className="section__index">03</span> Triggers
         </p>
@@ -43,7 +43,7 @@ export function Triggers() {
         </p>
       </header>
 
-      <div className="triggers">
+      <div className="block" data-reveal>
         {TRIGGERS.map((t) => (
           <article className="trigger" key={t.num}>
             <div className="trigger__kind">

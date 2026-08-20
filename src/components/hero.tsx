@@ -79,6 +79,7 @@ export function Hero() {
             aria-hidden="true"
           />
           <div className="hero__scrim" />
+          <div className="hero__mesh" aria-hidden="true" />
 
           <div data-parallax-layer="3" className="hero__content">
             <div className="hero__grid">
@@ -91,8 +92,11 @@ export function Hero() {
                 <h1 className="hero__title">FORMA</h1>
 
                 <p className="hero__expansion">
-                  Financial <span aria-hidden="true">&amp;</span> Operations Risk
-                  Management Assistant
+                  <span>
+                    <b>F</b>inancial <span aria-hidden="true">&amp;</span>{' '}
+                    <b>O</b>perations <b>R</b>isk <b>M</b>anagement{' '}
+                    <b>A</b>ssistant
+                  </span>
                 </p>
               </div>
 
@@ -118,13 +122,11 @@ export function Hero() {
         {/* Cinta de indicadores: cierra el hero sin necesidad de scroll */}
         <div className="hero__ticker">
           {TICKER.map((item) => (
-            <div className="hero__tick" key={item.label}>
+            <div className={`hero__tick hero__tick--${item.tone}`} key={item.label}>
               <span className="hero__tick-label">{item.label}</span>
               <span className="hero__tick-row">
                 <span className="hero__tick-value mono-num">{item.value}</span>
-                <span className={`hero__tick-delta hero__tick-delta--${item.tone}`}>
-                  {item.delta}
-                </span>
+                <span className="hero__tick-delta">{item.delta}</span>
               </span>
             </div>
           ))}

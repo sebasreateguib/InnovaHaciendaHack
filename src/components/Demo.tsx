@@ -21,7 +21,7 @@ const STEPS = [
 export function Demo() {
   return (
     <section className="section" id="demo">
-      <header className="section__head">
+      <header className="section__head" data-reveal>
         <p className="eyebrow">
           <span className="section__index">06</span> Plan de ejecución
         </p>
@@ -34,17 +34,19 @@ export function Demo() {
         </p>
       </header>
 
-      <div className="demo">
-        {STEPS.map((s) => (
-          <article className="step" key={s.num}>
-            <span className="step__num">{s.num}</span>
-            <h3 className="step__title">{s.title}</h3>
-            <p className="step__copy">{s.copy}</p>
-          </article>
-        ))}
+      <div className="block" data-reveal>
+        <div className="demo">
+          {STEPS.map((s) => (
+            <article className="step" key={s.num}>
+              <span className="step__num">{s.num}</span>
+              <h3 className="step__title">{s.title}</h3>
+              <p className="step__copy">{s.copy}</p>
+            </article>
+          ))}
+        </div>
       </div>
 
-      <div className="demo__cta">
+      <div className="demo__cta" data-reveal>
         <p>Reto 3 · Financiero. Un CFO que no duerme y audita cada factura.</p>
         <a className="btn btn--solid" href="#consola">
           Ver la consola

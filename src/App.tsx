@@ -7,9 +7,12 @@ import { RiskConsole } from './components/RiskConsole'
 import { Stack } from './components/Stack'
 import { Demo } from './components/Demo'
 import { Logo } from './components/Logo'
+import { useReveal } from './hooks/useReveal'
 import './app.css'
 
 function App() {
+  useReveal()
+
   return (
     <>
       <Navbar />

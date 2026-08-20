@@ -10,28 +10,31 @@
 }
 
 .console__index {
-  color: var(--signal);
+  color: var(--tech);
   margin-right: 0.6rem;
 }
 
 .console__title {
   margin: 1.25rem 0 0;
   font-family: var(--display);
-  font-size: clamp(2rem, 5.2vw, 4rem);
-  line-height: 1.02;
-  letter-spacing: -0.015em;
+  font-weight: 500;
+  font-size: clamp(2rem, 5.2vw, 3.8rem);
+  line-height: 1.04;
+  letter-spacing: -0.038em;
   max-width: 20ch;
+  text-wrap: balance;
 }
 
 .console__title em {
-  font-style: italic;
-  color: var(--signal);
+  font-style: normal;
+  color: var(--tech);
+  text-shadow: 0 0 32px rgba(77, 216, 224, 0.4);
 }
 
 .console__stamp {
   margin: 1.5rem 0 0;
   font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--bone-faint);
 }
@@ -41,22 +44,50 @@
 .metrics {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1px;
   border: var(--rule);
+  border-radius: var(--r-lg);
+  background: var(--hairline);
+  box-shadow: var(--bevel);
+  overflow: hidden;
   margin-bottom: clamp(2rem, 5vh, 3.5rem);
 }
 
 .metric {
+  position: relative;
   padding: clamp(1.4rem, 3vw, 2rem);
-  border-left: var(--rule);
-  transition: background 0.4s ease;
-}
-
-.metric:first-child {
-  border-left: none;
+  background: var(--ink-raised);
+  transition: background var(--base) var(--ease);
 }
 
 .metric:hover {
-  background: var(--ink-raised);
+  background: var(--ink-card);
+}
+
+/* Halo del color de la métrica: aparece bajo el cursor y sitúa la severidad
+   antes de leer la cifra */
+.metric::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 60%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--base) var(--ease);
+}
+
+.metric:hover::after {
+  opacity: 1;
+}
+
+.metric--signal::after {
+  background: linear-gradient(0deg, rgba(242, 171, 60, 0.09), transparent);
+}
+.metric--critical::after {
+  background: linear-gradient(0deg, rgba(229, 97, 74, 0.1), transparent);
+}
+.metric--contained::after {
+  background: linear-gradient(0deg, rgba(79, 209, 165, 0.09), transparent);
 }
 
 .metric__label {
@@ -74,6 +105,7 @@
   gap: 0.5rem;
   margin: 0 0 1.1rem;
   font-size: clamp(2rem, 3.4vw, 2.75rem);
+  font-weight: 500;
   line-height: 1;
   color: var(--bone);
 }
@@ -87,8 +119,9 @@
 }
 
 .metric__meter {
-  height: 2px;
-  background: var(--hairline);
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(148, 163, 184, 0.16);
   overflow: hidden;
 }
 
@@ -101,12 +134,15 @@
 
 .metric--signal .metric__meter span {
   background: var(--signal);
+  box-shadow: 0 0 12px rgba(242, 171, 60, 0.75);
 }
 .metric--critical .metric__meter span {
   background: var(--critical);
+  box-shadow: 0 0 12px rgba(229, 97, 74, 0.75);
 }
 .metric--contained .metric__meter span {
   background: var(--contained);
+  box-shadow: 0 0 12px rgba(79, 209, 165, 0.75);
 }
 
 .metric__note {
@@ -125,7 +161,17 @@
 
 .panel {
   border: var(--rule);
-  background: var(--ink-raised);
+  border-radius: var(--r-lg);
+  background: rgba(14, 17, 23, 0.72);
+  box-shadow: var(--bevel);
+  overflow: hidden;
+}
+
+/* El feed es la superficie viva del bloque: se distingue con un lavado cian */
+.panel--feed {
+  background:
+    radial-gradient(90% 45% at 50% 0%, rgba(77, 216, 224, 0.07), transparent 70%),
+    rgba(14, 17, 23, 0.72);
 }
 
 .panel__head {
@@ -133,15 +179,16 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.25rem clamp(1.25rem, 2.5vw, 1.75rem);
+  padding: 1.15rem clamp(1.25rem, 2.5vw, 1.75rem);
   border-bottom: var(--rule);
+  background: rgba(148, 163, 184, 0.03);
 }
 
 .panel__title {
   font-family: var(--mono);
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
@@ -152,9 +199,17 @@
   gap: 0.5rem;
   font-family: var(--mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--bone-faint);
+}
+
+.panel__live {
+  padding: 0.3rem 0.6rem;
+  border: 1px solid rgba(79, 209, 165, 0.3);
+  border-radius: 999px;
+  background: var(--contained-dim);
+  color: var(--contained);
 }
 
 /* ---- Tabla ---- */
@@ -180,11 +235,12 @@
   color: var(--bone-faint);
   padding-block: 0.75rem;
   border-bottom: var(--rule);
+  background: rgba(148, 163, 184, 0.03);
 }
 
 .ledger tbody tr {
   border-bottom: var(--rule);
-  transition: background 0.3s ease;
+  transition: background var(--base) var(--ease);
 }
 
 .ledger tbody tr:last-child {
@@ -192,11 +248,14 @@
 }
 
 .ledger tbody tr:hover {
-  background: var(--ink-card);
+  background: rgba(148, 163, 184, 0.045);
 }
 
 .ledger__entity {
   display: block;
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--bone);
 }
 
@@ -205,13 +264,14 @@
   margin-top: 0.2rem;
   font-family: var(--mono);
   font-size: 0.625rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--bone-faint);
 }
 
 .ledger__score {
   font-size: 1.0625rem;
+  font-weight: 500;
   margin-right: 0.5rem;
 }
 
@@ -236,27 +296,46 @@
   white-space: nowrap;
 }
 
+/* El color no es el único portador del estado: el punto y la etiqueta
+   textual mantienen la lectura sin percepción cromática */
 .chip {
-  display: inline-block;
-  padding: 0.3rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.6rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
   font-family: var(--mono);
   font-size: 0.625rem;
-  letter-spacing: 0.14em;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.chip::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
 }
 
 .chip--critical {
   color: var(--critical);
   background: var(--critical-dim);
+  border-color: rgba(229, 97, 74, 0.4);
 }
 .chip--signal {
   color: var(--signal);
   background: var(--signal-dim);
+  border-color: rgba(242, 171, 60, 0.4);
 }
 .chip--contained {
   color: var(--contained);
   background: var(--contained-dim);
+  border-color: rgba(79, 209, 165, 0.4);
 }
 
 /* ---- Feed ---- */
@@ -272,10 +351,15 @@
   padding: 1.15rem clamp(1.25rem, 2.5vw, 1.75rem) 1.15rem
     calc(clamp(1.25rem, 2.5vw, 1.75rem) + 3px);
   border-bottom: var(--rule);
+  transition: background var(--base) var(--ease);
 }
 
 .feed__item:last-child {
   border-bottom: none;
+}
+
+.feed__item:hover {
+  background: rgba(148, 163, 184, 0.035);
 }
 
 /* Filo de color a la izquierda en lugar de un icono genérico */
@@ -283,28 +367,34 @@
   content: '';
   position: absolute;
   inset: 0 auto 0 0;
-  width: 3px;
+  width: 2px;
 }
 
 .feed__item--critical::before {
   background: var(--critical);
+  box-shadow: 0 0 14px rgba(229, 97, 74, 0.7);
 }
 .feed__item--signal::before {
   background: var(--signal);
+  box-shadow: 0 0 14px rgba(242, 171, 60, 0.7);
 }
 .feed__item--contained::before {
   background: var(--contained);
+  box-shadow: 0 0 14px rgba(79, 209, 165, 0.7);
 }
 
 .feed__time {
   font-size: 0.625rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   color: var(--bone-faint);
 }
 
 .feed__title {
   margin: 0.4rem 0 0.3rem;
+  font-family: var(--display);
   font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--bone);
 }
 
@@ -351,7 +441,8 @@
   margin: 0.55rem 0 0;
   font-family: var(--mono);
   font-size: 0.625rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bone-faint);
+  color: var(--tech);
+  opacity: 0.85;
 }

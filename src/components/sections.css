@@ -1,6 +1,6 @@
 /* ============================================================
-   Primitivas de sección — mismo compás editorial para todo
-   el cuerpo de la landing.
+   Primitivas de sección — mismo compás para todo el cuerpo
+   de la landing.
    ============================================================ */
 
 .section {
@@ -15,31 +15,51 @@
 }
 
 .section__index {
-  color: var(--signal);
+  color: var(--tech);
   margin-right: 0.6rem;
 }
 
 .section__title {
   margin: 1.25rem 0 0;
   font-family: var(--display);
-  font-size: clamp(1.9rem, 4.6vw, 3.5rem);
-  line-height: 1.04;
-  letter-spacing: -0.015em;
+  font-weight: 500;
+  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
   max-width: 22ch;
+  text-wrap: balance;
 }
 
+/* El término clave de cada titular: cian con halo, sin cursiva.
+   La grotesk no tiene itálica real y la sintética se ve pobre. */
 .section__title em {
-  font-style: italic;
-  color: var(--signal);
+  font-style: normal;
+  color: var(--tech);
+  text-shadow: 0 0 32px rgba(77, 216, 224, 0.4);
 }
 
 .section__lede {
   margin: 1.5rem 0 0;
   max-width: 58ch;
   font-size: clamp(0.9375rem, 1.1vw, 1.0625rem);
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--bone-dim);
   text-wrap: pretty;
+}
+
+/* Bloque de datos: envoltura común de las rejillas y tablas */
+.block {
+  border: var(--rule);
+  border-radius: var(--r-lg);
+  background: rgba(14, 17, 23, 0.6);
+  box-shadow: var(--bevel);
+  overflow: hidden;
+}
+
+/* Tablas anchas: el scroll vive dentro del bloque, nunca en el body */
+.block--scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
 }
 
 /* ---------- 01 · Tesis: los dos mundos de dato ---------- */
@@ -47,16 +67,21 @@
 .thesis__split {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: var(--rule);
 }
 
 .thesis__col {
+  position: relative;
   padding: clamp(1.5rem, 3vw, 2.5rem);
   border-left: var(--rule);
+  transition: background var(--base) var(--ease);
 }
 
 .thesis__col:first-child {
   border-left: none;
+}
+
+.thesis__col:hover {
+  background: rgba(148, 163, 184, 0.03);
 }
 
 .thesis__kind {
@@ -66,7 +91,7 @@
   margin: 0 0 1.5rem;
   font-family: var(--mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--bone-faint);
 }
@@ -75,14 +100,16 @@
   content: '';
   width: 1.75rem;
   height: 1px;
-  background: currentColor;
+  background: linear-gradient(90deg, var(--tech), transparent);
 }
 
 .thesis__name {
   margin: 0 0 1rem;
   font-family: var(--display);
-  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
-  line-height: 1.1;
+  font-weight: 500;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
 }
 
 .thesis__list {
@@ -92,49 +119,60 @@
 }
 
 .thesis__list li {
-  padding: 0.65rem 0;
+  padding: 0.7rem 0;
   border-top: var(--rule);
   font-size: 0.875rem;
   color: var(--bone-dim);
 }
 
 .thesis__tool {
-  display: block;
-  margin-top: 0.35rem;
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.32rem 0.65rem;
+  border: 1px solid var(--tech-line);
+  border-radius: 999px;
+  background: var(--tech-dim);
   font-family: var(--mono);
   font-size: 0.625rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--signal);
+  color: var(--tech);
 }
 
-/* El veredicto: barra ancha que corta la sección */
+/* El veredicto: barra ancha que cierra la sección */
 .thesis__verdict {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
   gap: 1rem 2rem;
-  margin-top: -1px;
+  margin-top: 1rem;
   padding: clamp(1.75rem, 4vw, 2.75rem);
-  border: var(--rule);
-  background: var(--signal-dim);
+  border: 1px solid var(--tech-line);
+  border-radius: var(--r-lg);
+  background:
+    linear-gradient(120deg, var(--tech-dim), transparent 62%),
+    var(--ink-raised);
+  box-shadow: var(--bevel);
 }
 
 .thesis__verdict p {
   margin: 0;
   flex: 1 1 30ch;
   font-family: var(--display);
-  font-size: clamp(1.25rem, 2.4vw, 1.9rem);
-  line-height: 1.25;
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+  line-height: 1.35;
+  letter-spacing: -0.03em;
   color: var(--bone);
+  text-wrap: pretty;
 }
 
 .thesis__verdict span {
   font-family: var(--mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--signal);
+  color: var(--tech);
 }
 
 /* ---------- 02 · Arquitectura ---------- */
@@ -142,37 +180,68 @@
 .agents {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  border: var(--rule);
-  border-bottom: none;
+  /* El gap sobre fondo teñido dibuja los divisores: con auto-fit no se puede
+     saber qué elemento abre cada fila, y los bordes se duplicarían */
+  gap: 1px;
+  background: var(--hairline);
 }
 
 .agent {
+  position: relative;
   padding: clamp(1.5rem, 3vw, 2.25rem);
-  border-left: var(--rule);
-  border-bottom: var(--rule);
-  transition: background 0.4s ease;
+  /* Opaco a propósito: si la tarjeta translucida, el gap deja de leerse */
+  background: var(--ink-raised);
+  transition: background var(--base) var(--ease);
 }
 
 .agent:hover {
-  background: var(--ink-raised);
+  background: var(--ink-card);
+}
+
+/* Filo cian que se enciende sobre la tarjeta activa */
+.agent::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--tech);
+  opacity: 0;
+  transition: opacity var(--base) var(--ease);
+}
+
+.agent:hover::before {
+  opacity: 1;
 }
 
 .agent__top {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 1.1rem;
 }
 
+/* El índice como celda de terminal, no como número decorativo */
 .agent__num {
-  font-family: var(--display);
-  font-size: 2.5rem;
-  line-height: 1;
-  color: var(--signal);
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--tech-line);
+  border-radius: var(--r-sm);
+  background: var(--tech-dim);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--tech);
 }
 
 .agent__name {
+  display: block;
+  font-family: var(--display);
   font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--bone);
 }
 
@@ -181,7 +250,7 @@
   margin-top: 0.25rem;
   font-family: var(--mono);
   font-size: 0.625rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--bone-faint);
 }
@@ -200,10 +269,10 @@
 
 .agent__list li {
   position: relative;
-  padding: 0.5rem 0 0.5rem 1.1rem;
+  padding: 0.55rem 0 0.55rem 1.15rem;
   border-top: var(--rule);
   font-size: 0.8125rem;
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--bone-dim);
 }
 
@@ -211,10 +280,10 @@
   content: '';
   position: absolute;
   left: 0;
-  top: 1.05rem;
-  width: 4px;
+  top: 1.1rem;
+  width: 5px;
   height: 1px;
-  background: var(--signal);
+  background: var(--tech);
 }
 
 /* Orquestador: bloque distinto, no una tarjeta más */
@@ -224,22 +293,25 @@
   gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: center;
   padding: clamp(1.75rem, 4vw, 3rem);
-  border: var(--rule);
-  border-top: none;
-  background: var(--ink-raised);
+  border-top: var(--rule);
+  background:
+    radial-gradient(70% 100% at 100% 50%, rgba(77, 216, 224, 0.06), transparent 70%),
+    var(--ink-raised);
 }
 
 .supervisor__title {
   margin: 0.9rem 0 1rem;
   font-family: var(--display);
-  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
-  line-height: 1.1;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.9vw, 2.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
 }
 
 .supervisor__copy {
   margin: 0;
   font-size: 0.9375rem;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--bone-dim);
   text-wrap: pretty;
 }
@@ -249,11 +321,19 @@
   height: auto;
 }
 
-/* ---------- 03 · Triggers ---------- */
-
-.triggers {
-  border: var(--rule);
+/* El pulso recorre las conexiones: el grafo se lee como flujo activo */
+.supervisor__flow {
+  stroke-dasharray: 4 7;
+  animation: flow-dash 1.6s linear infinite;
 }
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+/* ---------- 03 · Triggers ---------- */
 
 .trigger {
   display: grid;
@@ -261,7 +341,7 @@
   gap: clamp(1rem, 3vw, 2.5rem);
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border-top: var(--rule);
-  transition: background 0.4s ease;
+  transition: background var(--base) var(--ease);
 }
 
 .trigger:first-child {
@@ -269,23 +349,33 @@
 }
 
 .trigger:hover {
-  background: var(--ink-raised);
+  background: rgba(148, 163, 184, 0.035);
 }
 
 .trigger__kind {
   display: flex;
-  align-items: baseline;
-  gap: 0.8rem;
+  align-items: center;
+  gap: 0.85rem;
 }
 
 .trigger__num {
+  flex: none;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid var(--tech-line);
+  border-radius: var(--r-sm);
+  background: var(--tech-dim);
   font-family: var(--mono);
   font-size: 0.6875rem;
-  color: var(--signal);
+  font-weight: 500;
+  color: var(--tech);
 }
 
 .trigger__name {
-  font-size: 1rem;
+  display: block;
+  font-family: var(--display);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--bone);
 }
 
@@ -294,7 +384,7 @@
   margin-top: 0.3rem;
   font-family: var(--mono);
   font-size: 0.625rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--bone-faint);
 }
@@ -303,7 +393,7 @@
 .trigger__out {
   margin: 0;
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--bone-dim);
   text-wrap: pretty;
 }
@@ -313,12 +403,12 @@
   margin-bottom: 0.5rem;
   font-family: var(--mono);
   font-size: 0.625rem;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
 .trigger__out .trigger__label {
-  color: var(--signal);
+  color: var(--tech);
 }
 
 .trigger__flow .trigger__label {
@@ -331,12 +421,11 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  border: var(--rule);
 }
 
 .stack th,
 .stack td {
-  padding: 1.15rem clamp(1.25rem, 2.5vw, 1.75rem);
+  padding: 1.1rem clamp(1.25rem, 2.5vw, 1.75rem);
   font-weight: 400;
   vertical-align: top;
 }
@@ -344,23 +433,27 @@
 .stack thead th {
   font-family: var(--mono);
   font-size: 0.625rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--bone-faint);
   padding-block: 0.85rem;
   border-bottom: var(--rule);
+  background: rgba(148, 163, 184, 0.03);
 }
 
 .stack tbody tr {
   border-top: var(--rule);
-  transition: background 0.35s ease;
+  transition: background var(--base) var(--ease);
 }
 
 .stack tbody tr:hover {
-  background: var(--ink-raised);
+  background: rgba(148, 163, 184, 0.04);
 }
 
 .stack__component {
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--bone);
   white-space: nowrap;
 }
@@ -368,12 +461,12 @@
 .stack__tech {
   font-family: var(--mono);
   font-size: 0.8125rem;
-  color: var(--signal);
+  color: var(--tech);
 }
 
 .stack__why {
   font-size: 0.875rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--bone-dim);
   max-width: 44ch;
 }
@@ -383,40 +476,54 @@
 .demo {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
-  border: var(--rule);
-  border-right: none;
+  gap: 1px;
+  background: var(--hairline);
 }
 
 .step {
   position: relative;
   padding: clamp(1.75rem, 3.5vw, 2.75rem);
-  border-right: var(--rule);
+  background: var(--ink-raised);
+  transition: background var(--base) var(--ease);
+}
+
+.step:hover {
+  background: var(--ink-card);
 }
 
 .step__num {
   display: block;
   font-family: var(--display);
+  font-weight: 600;
   font-size: clamp(3rem, 6vw, 4.5rem);
   line-height: 0.85;
-  color: var(--hairline-strong);
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--hairline-strong);
   margin-bottom: 1.25rem;
-  transition: color 0.5s ease;
+  transition:
+    -webkit-text-stroke-color var(--base) var(--ease),
+    color var(--base) var(--ease);
 }
 
 .step:hover .step__num {
-  color: var(--signal);
+  -webkit-text-stroke-color: var(--tech);
+  color: var(--tech-dim);
 }
 
 .step__title {
   margin: 0 0 0.75rem;
+  font-family: var(--display);
   font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--bone);
 }
 
 .step__copy {
   margin: 0;
   font-size: 0.875rem;
-  line-height: 1.65;
+  line-height: 1.7;
   color: var(--bone-dim);
   text-wrap: pretty;
 }
@@ -426,18 +533,25 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem 2rem;
-  margin-top: -1px;
+  margin-top: 1rem;
   padding: clamp(1.75rem, 4vw, 2.5rem);
-  border: var(--rule);
-  background: var(--ink-raised);
+  border: 1px solid var(--tech-line);
+  border-radius: var(--r-lg);
+  background:
+    linear-gradient(120deg, var(--tech-dim), transparent 62%),
+    var(--ink-raised);
+  box-shadow: var(--bevel);
 }
 
 .demo__cta p {
   margin: 0;
   flex: 1 1 26ch;
   font-family: var(--display);
-  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
-  line-height: 1.25;
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2.1vw, 1.65rem);
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  text-wrap: pretty;
 }
 
 /* ---------- Adaptativo ---------- */

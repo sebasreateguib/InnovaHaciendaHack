@@ -10,7 +10,8 @@ type LogoProps = {
  * escala, y por eso va en ámbar.
  *
  * La barra completa lleva el color en lugar de solo su extremo: a 16px un
- * acento pequeño se pierde y el sello queda monocromo.
+ * acento pequeño se pierde y el sello queda monocromo. El ámbar es deliberado:
+ * marca el exceso, que es la escala de riesgo, no la de interfaz.
  */
 export function Logo({ size = 30, className }: LogoProps) {
   return (
@@ -23,21 +24,29 @@ export function Logo({ size = 30, className }: LogoProps) {
       role="img"
       aria-label="FORMA"
     >
-      {/* Sello: encuadre de un pixel, hereda el color del texto */}
+      {/* Sello: encuadre redondeado, hereda el color del texto */}
       <rect
         x="0.5"
         y="0.5"
         width="31"
         height="31"
+        rx="6"
         stroke="currentColor"
         strokeOpacity="0.3"
       />
       {/* Eje */}
-      <rect x="9" y="8" width="3.6" height="16" fill="currentColor" />
+      <rect x="9" y="8" width="3.6" height="16" rx="1.4" fill="currentColor" />
       {/* Barra intermedia, dentro de escala */}
-      <rect x="9" y="14.6" width="8.4" height="3.6" fill="currentColor" />
+      <rect x="9" y="14.6" width="8.4" height="3.6" rx="1.4" fill="currentColor" />
       {/* Barra que excede el umbral */}
-      <rect x="9" y="8" width="13.4" height="3.6" fill="var(--signal, #e4a340)" />
+      <rect
+        x="9"
+        y="8"
+        width="13.4"
+        height="3.6"
+        rx="1.4"
+        fill="var(--signal, #f2ab3c)"
+      />
     </svg>
   );
 }

@@ -1,37 +1,54 @@
 /* ============================================================
    FORMA — sistema de diseño
-   Institucional / editorial. Negro mineral, hairlines, señal ámbar.
+   Producto de software. Void mineral, grid técnico, señal ámbar
+   para riesgo y cian eléctrico para interfaz.
    ============================================================ */
 
 :root {
-  /* Superficies */
-  --ink: #0a0b0d;
-  --ink-raised: #101115;
-  --ink-card: #131419;
-  --hairline: rgba(232, 228, 220, 0.12);
-  --hairline-strong: rgba(232, 228, 220, 0.22);
+  /* Superficies — nunca #000: en OLED el negro puro produce smear */
+  --void: #06070a;
+  --ink: #0a0c11;
+  --ink-raised: #0e1117;
+  --ink-card: #12161e;
+  --hairline: rgba(148, 163, 184, 0.14);
+  --hairline-strong: rgba(148, 163, 184, 0.28);
+  /* Filo interior: separa la superficie del fondo sin subir la opacidad */
+  --bevel: inset 0 1px 0 rgba(255, 255, 255, 0.045);
 
   /* Texto */
-  --bone: #e8e4dc;
-  --bone-dim: #9a978f;
-  --bone-faint: #6a6862;
+  --bone: #f2f5f9;
+  --bone-dim: #98a2b3;
+  --bone-faint: #7a8699;
 
-  /* Señales de riesgo */
-  --signal: #e4a340;
-  --signal-dim: rgba(228, 163, 64, 0.14);
-  --critical: #c4553d;
-  --critical-dim: rgba(196, 85, 61, 0.16);
-  --contained: #6b9c88;
-  --contained-dim: rgba(107, 156, 136, 0.14);
+  /* Cian: acento de interfaz y de tecnología. Nunca significa riesgo. */
+  --tech: #4dd8e0;
+  --tech-dim: rgba(77, 216, 224, 0.12);
+  --tech-line: rgba(77, 216, 224, 0.34);
+
+  /* Señales de riesgo — la escala semántica de la consola */
+  --signal: #f2ab3c;
+  --signal-dim: rgba(242, 171, 60, 0.13);
+  --critical: #e5614a;
+  --critical-dim: rgba(229, 97, 74, 0.15);
+  --contained: #4fd1a5;
+  --contained-dim: rgba(79, 209, 165, 0.13);
 
   /* Tipografía */
-  --display: 'Instrument Serif', 'Times New Roman', serif;
-  --sans: 'Archivo', -apple-system, sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --display: 'Space Grotesk', 'Helvetica Neue', sans-serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
 
-  /* Ritmo */
+  /* Ritmo y forma */
   --gutter: clamp(1.25rem, 4vw, 4rem);
   --rule: 1px solid var(--hairline);
+  --r-sm: 3px;
+  --r-md: 6px;
+  --r-lg: 10px;
+
+  /* Movimiento — una sola curva para toda la interfaz */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --fast: 180ms;
+  --base: 280ms;
 
   color-scheme: dark;
   font-synthesis: none;
@@ -47,19 +64,21 @@
 }
 
 html {
-  scrollbar-color: var(--hairline-strong) var(--ink);
+  scrollbar-color: var(--hairline-strong) var(--void);
 }
 
 body {
   margin: 0;
   overflow-x: clip;
-  background: var(--ink);
+  background: var(--void);
   color: var(--bone);
-  font: 400 16px/1.55 var(--sans);
-  letter-spacing: 0.01em;
+  font: 400 16px/1.6 var(--sans);
+  letter-spacing: -0.006em;
 }
 
 #root {
+  position: relative;
+  z-index: 1;
   isolation: isolate;
 }
 
@@ -67,19 +86,43 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-weight: 400;
+  font-family: var(--display);
+  font-weight: 500;
+  letter-spacing: -0.03em;
 }
 
-/* Grano global: rompe el plano digital, da textura de impresión */
+/* ---- Fondo del documento ----
+   Dos capas fijas bajo el contenido: retícula técnica y luz ambiental.
+   Van en body::before/::after para no crear un stacking context nuevo
+   en cada sección. */
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-size: 72px 72px;
+  /* La retícula se disuelve hacia los bordes: sugiere plano técnico
+     sin convertirse en un patrón de papel milimetrado */
+  -webkit-mask-image: radial-gradient(115% 85% at 50% 0%, #000 8%, transparent 72%);
+  mask-image: radial-gradient(115% 85% at 50% 0%, #000 8%, transparent 72%);
+  opacity: 0.5;
+}
+
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 999;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.4;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background:
+    radial-gradient(52rem 34rem at 12% -6%, rgba(77, 216, 224, 0.1), transparent 62%),
+    radial-gradient(46rem 30rem at 92% 22%, rgba(242, 171, 60, 0.07), transparent 60%),
+    radial-gradient(60rem 40rem at 50% 108%, rgba(77, 216, 224, 0.06), transparent 62%);
 }
 
 /* ---- Primitivas compartidas ---- */
@@ -88,7 +131,7 @@ body::after {
   font-family: var(--mono);
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--bone-faint);
 }
@@ -96,52 +139,74 @@ body::after {
 .mono-num {
   font-family: var(--mono);
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+}
+
+/* Superficie estándar: fondo, filo y bisel interior en una sola regla */
+.surface {
+  border: var(--rule);
+  border-radius: var(--r-md);
+  background: var(--ink-raised);
+  box-shadow: var(--bevel);
 }
 
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.85rem 1.5rem;
+  padding: 0.8rem 1.4rem;
   border: 1px solid transparent;
-  border-radius: 0;
+  border-radius: var(--r-sm);
   font-family: var(--mono);
   font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
   transition:
-    background 0.35s cubic-bezier(0.2, 0.8, 0.3, 1),
-    color 0.35s cubic-bezier(0.2, 0.8, 0.3, 1),
-    border-color 0.35s cubic-bezier(0.2, 0.8, 0.3, 1);
+    background var(--base) var(--ease),
+    color var(--base) var(--ease),
+    border-color var(--base) var(--ease),
+    box-shadow var(--base) var(--ease),
+    transform var(--fast) var(--ease);
+}
+
+.btn:active {
+  transform: translateY(1px);
 }
 
 .btn--solid {
-  background: var(--signal);
-  color: #17130a;
+  background: var(--tech);
+  color: #04191b;
+  box-shadow: 0 6px 24px -10px rgba(77, 216, 224, 0.75);
 }
+
 .btn--solid:hover {
-  background: var(--bone);
+  background: #6fe6ec;
+  box-shadow: 0 10px 34px -10px rgba(77, 216, 224, 0.9);
 }
 
 .btn--ghost {
-  background: transparent;
+  background: rgba(148, 163, 184, 0.04);
   color: var(--bone);
   border-color: var(--hairline-strong);
 }
+
 .btn--ghost:hover {
-  border-color: var(--bone);
-  background: rgba(232, 228, 220, 0.06);
+  border-color: var(--tech-line);
+  color: var(--tech);
+  background: var(--tech-dim);
 }
 
 .btn:focus-visible,
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--signal);
+  outline: 2px solid var(--tech);
   outline-offset: 3px;
+  border-radius: var(--r-sm);
 }
 
 /* Punto de estado con latido */
@@ -152,7 +217,9 @@ button:focus-visible {
   flex: none;
   border-radius: 50%;
   background: var(--contained);
+  box-shadow: 0 0 10px rgba(79, 209, 165, 0.9);
 }
+
 .pulse::after {
   content: '';
   position: absolute;
@@ -194,6 +261,23 @@ button:focus-visible {
   }
 }
 
+/* ---- Revelado por scroll ----
+   El observer pone .is-visible; sin JS el contenido queda visible igual. */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 700ms var(--ease),
+    transform 700ms var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -201,5 +285,10 @@ button:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }
