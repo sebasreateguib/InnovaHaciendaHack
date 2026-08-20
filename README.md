@@ -5,6 +5,8 @@
 Arquitectura multi-agente con sistema híbrido (SQL + RAG documental) para el reto financiero inmobiliario. FORMA cruza el ERP con las bitácoras de campo para detectar el sobrecosto, explicar su causa y proyectar el impacto en el margen.
 
 > **Reto 3 · Financiero** — Multi-Agent Orchestration · Hybrid RAG · OCR Ingestion · Predictive Analytics
+>
+> Licencia [GPL-3.0](LICENSE) · React + Vite + TypeScript
 
 ---
 
@@ -170,7 +172,14 @@ src/
     ├── RiskConsole.tsx     04 · Consola de riesgo (datos simulados)
     ├── Stack.tsx           05 · Stack tecnológico
     ├── Demo.tsx            06 · Plan de ejecución
-    └── Logo.tsx            Marca: la F como gráfico de barras
+    ├── Logo.tsx            Marca: la F como gráfico de barras
+    ├── hero.css            Estilos del hero
+    ├── navbar.css          Estilos de la barra
+    ├── risk-console.css    Estilos de la consola
+    └── sections.css        Estilos compartidos de secciones
+
+public/                     Assets estáticos: video y póster del hero,
+                            favicon y el PDF del plan de solución
 ```
 
 ### Sistema de diseño
@@ -199,4 +208,6 @@ El PDF es de la fase de planteamiento; la landing y este README se apartan de é
 
 ## Licencia
 
-Sin licencia declarada. Prototipo de hackathon con datos de demostración.
+**GNU General Public License v3.0** — texto completo en [`LICENSE`](LICENSE).
+
+Software libre: puedes usarlo, estudiarlo, modificarlo y redistribuirlo. La GPL-3.0 es *copyleft* fuerte, de modo que cualquier obra derivada que distribuyas debe publicarse también bajo GPL-3.0 y con su código fuente disponible. Se entrega **sin garantía alguna**, en los términos de las secciones 15 y 16 de la licencia.
