@@ -194,18 +194,6 @@ Dependencias de runtime: **GSAP** (parallax del hero) y **Lenis** (scroll suave)
 
 ---
 
-## Divergencias respecto al PDF
-
-El PDF es de la fase de planteamiento; la landing y este README se apartan de él en tres puntos, a propósito:
-
-| | PDF | Aquí |
-|---|---|---|
-| Modelo de Anthropic | Claude 3.5 Sonnet | **Claude Opus 5** (`claude-opus-5`) — el nombre del PDF quedó obsoleto |
-| Frontend | Next.js / React + TailwindCSS | **React + Vite + CSS propio** — sin framework de utilidades |
-| Encuadre | «Reto 3 · Hackathon 2026» en portada | La landing abre con posicionamiento; el marco de prototipo vive en el pie |
-
----
-
 ## Licencia
 
 **GNU General Public License v3.0** — texto completo en [`LICENSE`](LICENSE).
