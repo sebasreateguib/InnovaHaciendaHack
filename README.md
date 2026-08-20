@@ -6,19 +6,6 @@ Arquitectura multi-agente con sistema híbrido (SQL + RAG documental) para el re
 
 ---
 
-## Estado del repositorio
-
-**Este repositorio contiene únicamente la landing page** que presenta el plan de solución. No incluye el sistema.
-
-| | |
-|---|---|
-| ✅ En el repo | Landing page en React + Vite + TypeScript |
-| ❌ No en el repo | Agentes, orquestador, backend, base de datos, ingesta OCR |
-
-Todo lo descrito en las secciones «La tesis», «Arquitectura», «Triggers» y «Stack» es **diseño propuesto**, documentado en [`public/Hackathon Financial Plan.pdf`](public/Hackathon%20Financial%20Plan.pdf). No hay código Python ni servicios en este árbol. Las cifras que muestra la consola de la landing son **simuladas**.
-
----
-
 ## La tesis: por qué un RAG híbrido es estrictamente necesario
 
 En finanzas inmobiliarias coexisten dos realidades de dato, y ningún sistema que atienda solo a una puede auditar una obra: le faltará el número exacto o le faltará el motivo.
