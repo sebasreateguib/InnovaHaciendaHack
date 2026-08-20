@@ -45,7 +45,7 @@ export function Logo({ size = 30, className }: LogoProps) {
         width="13.4"
         height="3.6"
         rx="1.4"
-        fill="var(--signal, #f2ab3c)"
+        fill="var(--signal, #e4a340)"
       />
     </svg>
   );

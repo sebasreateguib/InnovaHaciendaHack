@@ -28,7 +28,7 @@
 .console__title em {
   font-style: normal;
   color: var(--tech);
-  text-shadow: 0 0 32px rgba(77, 216, 224, 0.4);
+  text-shadow: 0 0 32px rgba(228, 163, 64, 0.4);
 }
 
 .console__stamp {
@@ -43,7 +43,8 @@
 
 .metrics {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  /* 4 métricas: 3 columnas dejaban dos celdas vacías entre 783 y 1043px */
+  grid-template-columns: 1fr;
   gap: 1px;
   border: var(--rule);
   border-radius: var(--r-lg);
@@ -51,6 +52,18 @@
   box-shadow: var(--bevel);
   overflow: hidden;
   margin-bottom: clamp(2rem, 5vh, 3.5rem);
+}
+
+@media (min-width: 34rem) {
+  .metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 72rem) {
+  .metrics {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .metric {
@@ -81,7 +94,7 @@
 }
 
 .metric--signal::after {
-  background: linear-gradient(0deg, rgba(242, 171, 60, 0.09), transparent);
+  background: linear-gradient(0deg, rgba(228, 163, 64, 0.09), transparent);
 }
 .metric--critical::after {
   background: linear-gradient(0deg, rgba(229, 97, 74, 0.1), transparent);
@@ -134,7 +147,7 @@
 
 .metric--signal .metric__meter span {
   background: var(--signal);
-  box-shadow: 0 0 12px rgba(242, 171, 60, 0.75);
+  box-shadow: 0 0 12px rgba(228, 163, 64, 0.75);
 }
 .metric--critical .metric__meter span {
   background: var(--critical);
@@ -170,7 +183,7 @@
 /* El feed es la superficie viva del bloque: se distingue con un lavado cian */
 .panel--feed {
   background:
-    radial-gradient(90% 45% at 50% 0%, rgba(77, 216, 224, 0.07), transparent 70%),
+    radial-gradient(90% 45% at 50% 0%, rgba(228, 163, 64, 0.07), transparent 70%),
     rgba(14, 17, 23, 0.72);
 }
 
@@ -330,7 +343,7 @@
 .chip--signal {
   color: var(--signal);
   background: var(--signal-dim);
-  border-color: rgba(242, 171, 60, 0.4);
+  border-color: rgba(228, 163, 64, 0.4);
 }
 .chip--contained {
   color: var(--contained);
@@ -376,7 +389,7 @@
 }
 .feed__item--signal::before {
   background: var(--signal);
-  box-shadow: 0 0 14px rgba(242, 171, 60, 0.7);
+  box-shadow: 0 0 14px rgba(228, 163, 64, 0.7);
 }
 .feed__item--contained::before {
   background: var(--contained);
@@ -443,6 +456,5 @@
   font-size: 0.625rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--tech);
-  opacity: 0.85;
+  color: var(--bone-faint);
 }

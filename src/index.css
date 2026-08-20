@@ -1,7 +1,7 @@
 /* ============================================================
    FORMA — sistema de diseño
-   Producto de software. Void mineral, grid técnico, señal ámbar
-   para riesgo y cian eléctrico para interfaz.
+   Producto de software. Void mineral, grid técnico y un único
+   acento ámbar para interfaz y para señal de riesgo.
    ============================================================ */
 
 :root {
@@ -20,18 +20,20 @@
   --bone-dim: #98a2b3;
   --bone-faint: #7a8699;
 
-  /* Cian: acento de interfaz y de tecnología. Nunca significa riesgo. */
-  --tech: #4dd8e0;
-  --tech-dim: rgba(77, 216, 224, 0.12);
-  --tech-line: rgba(77, 216, 224, 0.34);
-
   /* Señales de riesgo — la escala semántica de la consola */
-  --signal: #f2ab3c;
-  --signal-dim: rgba(242, 171, 60, 0.13);
+  --signal: #e4a340;
+  --signal-dim: rgba(228, 163, 64, 0.13);
   --critical: #e5614a;
   --critical-dim: rgba(229, 97, 74, 0.15);
   --contained: #4fd1a5;
   --contained-dim: rgba(79, 209, 165, 0.13);
+
+  /* Acento de interfaz. Comparte tono con --signal, así que la severidad
+     nunca se apoya solo en el color: los chips y el feed llevan además
+     punto, etiqueta textual y filo lateral. */
+  --tech: var(--signal);
+  --tech-dim: rgba(228, 163, 64, 0.12);
+  --tech-line: rgba(228, 163, 64, 0.34);
 
   /* Tipografía */
   --display: 'Space Grotesk', 'Helvetica Neue', sans-serif;
@@ -120,9 +122,9 @@ body::after {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(52rem 34rem at 12% -6%, rgba(77, 216, 224, 0.1), transparent 62%),
-    radial-gradient(46rem 30rem at 92% 22%, rgba(242, 171, 60, 0.07), transparent 60%),
-    radial-gradient(60rem 40rem at 50% 108%, rgba(77, 216, 224, 0.06), transparent 62%);
+    radial-gradient(52rem 34rem at 12% -6%, rgba(228, 163, 64, 0.1), transparent 62%),
+    radial-gradient(46rem 30rem at 92% 22%, rgba(228, 163, 64, 0.07), transparent 60%),
+    radial-gradient(60rem 40rem at 50% 108%, rgba(228, 163, 64, 0.06), transparent 62%);
 }
 
 /* ---- Primitivas compartidas ---- */
@@ -180,13 +182,13 @@ body::after {
 
 .btn--solid {
   background: var(--tech);
-  color: #04191b;
-  box-shadow: 0 6px 24px -10px rgba(77, 216, 224, 0.75);
+  color: #17130a;
+  box-shadow: 0 6px 24px -10px rgba(228, 163, 64, 0.75);
 }
 
 .btn--solid:hover {
-  background: #6fe6ec;
-  box-shadow: 0 10px 34px -10px rgba(77, 216, 224, 0.9);
+  background: #f0bb63;
+  box-shadow: 0 10px 34px -10px rgba(228, 163, 64, 0.9);
 }
 
 .btn--ghost {

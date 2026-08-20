@@ -1,10 +1,6 @@
 .foot {
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 1rem 2.5rem;
-  padding: 2.5rem var(--gutter);
+  padding: clamp(3rem, 7vh, 4.5rem) var(--gutter) 0;
   border-top: var(--rule);
 }
 
@@ -16,6 +12,31 @@
   background: linear-gradient(90deg, var(--tech-line), transparent 45%);
 }
 
+/* Rejilla explícita: antes eran tres ítems flex con margin-left:auto en el
+   último, así que el del medio caía donde tocara sin alinearse a nada */
+.foot__top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
+}
+
+@media (min-width: 48rem) {
+  .foot__top {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1.2fr);
+    /* Por caja, no por línea base: la base de un SVG es su borde inferior */
+    align-items: start;
+  }
+}
+
+/* ---- Marca ---- */
+
+.foot__mark-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
 .foot__mark {
   font-family: var(--display);
   font-size: 0.9375rem;
@@ -24,7 +45,117 @@
   color: var(--bone);
 }
 
-.foot__note {
+.foot__expansion {
+  margin: 1rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  max-width: 30ch;
+}
+
+.foot__tagline {
+  margin: 0.9rem 0 0;
+  max-width: 46ch;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+
+/* ---- Columnas ---- */
+
+.foot__col-title {
+  margin: 0 0 1.1rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tech);
+}
+
+.foot__links {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.1rem;
+}
+
+.foot__link {
+  display: block;
+  padding: 0.45rem 0;
+  font-size: 0.875rem;
+  color: var(--bone-dim);
+  text-decoration: none;
+  transition: color var(--fast) var(--ease);
+}
+
+.foot__link:hover {
+  color: var(--tech);
+}
+
+/* En puntero grueso el enlace crece hasta el objetivo táctil de 44px; en
+   escritorio se queda compacto para no inflar el pie */
+@media (hover: none) {
+  .foot__link {
+    padding: 0.7rem 0;
+  }
+}
+
+/* ---- Ficha técnica ---- */
+
+.foot__specs {
+  margin: 0;
+}
+
+.foot__spec {
+  display: grid;
+  grid-template-columns: 4.5rem minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-top: var(--rule);
+}
+
+.foot__spec:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.foot__spec dt {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+  padding-top: 0.15rem;
+}
+
+.foot__spec dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  color: var(--bone-dim);
+}
+
+/* ---- Barra inferior ---- */
+
+.foot__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  padding: 1.25rem 0 1.5rem;
+  border-top: var(--rule);
+}
+
+.foot__disclaimer,
+.foot__top-link {
+  margin: 0;
   font-family: var(--mono);
   font-size: 0.6875rem;
   letter-spacing: 0.11em;
@@ -32,14 +163,13 @@
   color: var(--bone-faint);
 }
 
-.foot__note:last-child {
-  margin-left: auto;
+.foot__top-link {
+  text-decoration: none;
+  transition: color var(--fast) var(--ease);
 }
 
-.foot__brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.foot__top-link:hover {
+  color: var(--tech);
 }
 
 html {

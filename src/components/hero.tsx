@@ -86,10 +86,24 @@ export function Hero() {
               <div className="hero__lede">
                 <p className="eyebrow hero__eyebrow">
                   <span className="hero__rule" aria-hidden="true" />
-                  Reto 3 · Financiero · Hackathon 2026
+                  Presupuesto vivo · Del ERP a la bitácora de campo
                 </p>
 
-                <h1 className="hero__title">FORMA</h1>
+                {/* Dos capas: el texto del h1 es lo planeado (contorno) y el
+                    span superpuesto es lo ejecutado (sólido), recortado a la
+                    altura del avance. El h1 conserva su texto real, así que
+                    el nombre accesible sigue siendo "FORMA" una sola vez. */}
+                <div className="hero__mark">
+                  <h1 className="hero__title">
+                    FORMA
+                    <span className="hero__title-built" aria-hidden="true">
+                      FORMA
+                    </span>
+                  </h1>
+                  <span className="hero__datum" aria-hidden="true">
+                    <span className="hero__datum-label">88.0% de facturas auditadas</span>
+                  </span>
+                </div>
 
                 <p className="hero__expansion">
                   <span>

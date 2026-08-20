@@ -66,7 +66,7 @@
     ),
     radial-gradient(
       70% 55% at 78% 8%,
-      rgba(77, 216, 224, 0.16),
+      rgba(228, 163, 64, 0.16),
       transparent 68%
     );
 }
@@ -91,21 +91,27 @@
   z-index: 2;
   display: flex;
   align-items: flex-end;
-  padding: 0 var(--gutter) clamp(7.5rem, 15vh, 10.5rem);
+  /* El navbar es fijo (~63px sin scroll) y no reserva espacio en el flujo:
+     si el contenido no lo descuenta, se le mete debajo */
+  padding: clamp(5rem, 11vh, 7rem) var(--gutter) clamp(7.5rem, 15vh, 10.5rem);
   will-change: transform;
 }
 
 .hero__grid {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   align-items: end;
   gap: clamp(1.5rem, 5vw, 5rem);
 }
 
+.hero__lede {
+  container-type: inline-size;
+}
+
 .hero__eyebrow {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.9rem;
   margin: 0 0 clamp(1rem, 3vh, 2rem);
   color: var(--on-video-dim);
@@ -114,29 +120,139 @@
 }
 
 .hero__rule {
+  flex: none;
   width: clamp(2rem, 6vw, 4.5rem);
   height: 1px;
+  /* Alinea con el centro óptico de la PRIMERA línea, no del bloque: en móvil
+     el texto envuelve a dos y centrarlo dejaría la línea flotando en medio */
+  margin-top: 0.55rem;
   background: linear-gradient(90deg, var(--tech), transparent);
   transform-origin: left;
   animation: wipe 1.1s var(--ease) 0.15s both;
 }
 
-/* El wordmark: grotesk tensado, ópticamente al ras del margen */
+/* ---- El wordmark como medidor de obra ----
+
+   FORMA se lee como un vaciado: lo pendiente va en contorno de plano y lo
+   auditado en sólido, con el nivel al 88% de facturas procesadas. La línea de
+   cota ámbar cruza las letras a esa altura para que el relleno parcial se lea
+   como medida y no como estado de carga.
+
+   A 88% queda poca franja vacía, así que el contorno tiene que sostener él
+   solo la lectura de "falta esto": de ahí el trazo más marcado y el relleno
+   interior más apagado que en un nivel medio.
+
+   El nivel se calcula sobre las métricas reales de Space Grotesk (asc .984,
+   desc .273, cap .700 sobre 1000) y no sobre la caja del h1: con
+   line-height .86 el half-leading es negativo y la línea base cae a .0745em
+   del borde inferior. De ahí --base-h y el multiplicador .007em por punto
+   porcentual, que es la altura de mayúscula partida en cien. */
+
+.hero__mark {
+  position: relative;
+  display: block;
+  /* Reserva para navegadores sin container queries: sin ella la declaración
+     inválida haría caer el tamaño al heredado */
+  font-size: clamp(4.5rem, 13vw, 13rem);
+  font-size: min(29cqw, 16rem);
+  margin-left: -0.012em;
+
+  --exec: 88;
+  --base-h: 0.0745em;
+  --fill-h: calc(var(--base-h) + var(--exec) * 0.007em);
+
+  animation: rise 1.1s var(--ease) 0.1s both;
+}
+
+/* Capa 1 — lo planeado: contorno de plano, relleno casi nulo */
 .hero__title {
+  position: relative;
   font-family: var(--display);
   font-weight: 500;
-  font-size: clamp(4.5rem, 15.5vw, 15rem);
+  font-size: 1em;
   line-height: 0.86;
   letter-spacing: -0.045em;
-  margin-left: -0.012em;
-  /* El degradado quita el plano de la tipografía maciza sin bajar contraste:
-     el arranque queda en blanco puro y solo la caída se apaga */
-  background: linear-gradient(168deg, #ffffff 0%, #ffffff 44%, #a7b4c4 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: rgba(242, 245, 249, 0.06);
+  -webkit-text-stroke-width: 1.5px;
+  -webkit-text-stroke-width: clamp(1px, 0.008em, 2.25px);
+  -webkit-text-stroke-color: rgba(242, 245, 249, 0.62);
   filter: drop-shadow(0 2px 40px rgba(4, 5, 8, 0.6));
-  animation: rise 1.1s var(--ease) 0.1s both;
+}
+
+/* Capa 2 — lo ejecutado: sólido, recortado a la altura del avance.
+   El trazo va en blanco y del mismo grosor que el del contorno para que la
+   silueta siga siendo continua al cruzar el nivel. */
+.hero__title-built {
+  position: absolute;
+  inset: 0;
+  color: #ffffff;
+  -webkit-text-stroke-color: #ffffff;
+  clip-path: inset(calc(100% - var(--fill-h)) 0 0 0);
+  animation: pour 1.6s var(--ease) 0.45s both;
+}
+
+/* Se anima clip-path y no una custom property: interpola de forma nativa en
+   todos los navegadores, sin depender del soporte de @property */
+@keyframes pour {
+  from {
+    clip-path: inset(calc(100% - var(--base-h)) 0 0 0);
+  }
+  to {
+    clip-path: inset(calc(100% - var(--fill-h)) 0 0 0);
+  }
+}
+
+/* Línea de cota al nivel del vaciado */
+.hero__datum {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--fill-h);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--signal) 0%,
+    var(--signal) 62%,
+    rgba(228, 163, 64, 0.28) 88%,
+    transparent 100%
+  );
+  box-shadow: 0 0 14px rgba(228, 163, 64, 0.45);
+  animation: datum-rise 1.6s var(--ease) 0.45s both;
+}
+
+/* Marca de extremo, como en una acotación de plano */
+.hero__datum::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 1px;
+  height: 0.7rem;
+  background: var(--signal);
+}
+
+@keyframes datum-rise {
+  from {
+    transform: translateY(calc(var(--exec) * 0.007em));
+  }
+  to {
+    transform: none;
+  }
+}
+
+.hero__datum-label {
+  position: absolute;
+  right: 0;
+  bottom: 0.45rem;
+  font-family: var(--mono);
+  /* En rem a propósito: el em de esta caja es el del wordmark */
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--signal);
+  text-shadow: var(--halo);
 }
 
 .hero__expansion {
@@ -320,7 +436,15 @@
 
   .hero__content {
     align-items: center;
+    padding-top: clamp(6rem, 13vh, 7.5rem);
     padding-bottom: clamp(11rem, 26vh, 14rem);
+  }
+
+  /* A una columna el contenido pide ~417px y la cinta otros ~165px. Con
+     40rem el bloque no cabía entre ambos y, al centrarse, desbordaba hacia
+     arriba por debajo del navbar. 45rem le da sitio para respirar. */
+  .hero__frame {
+    min-height: 45rem;
   }
 
   .hero__ticker {
