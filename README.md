@@ -4,10 +4,6 @@
 
 Arquitectura multi-agente con sistema híbrido (SQL + RAG documental) para el reto financiero inmobiliario. FORMA cruza el ERP con las bitácoras de campo para detectar el sobrecosto, explicar su causa y proyectar el impacto en el margen.
 
-> **Reto 3 · Financiero** — Multi-Agent Orchestration · Hybrid RAG · OCR Ingestion · Predictive Analytics
->
-> Licencia [GPL-3.0](LICENSE) · React + Vite + TypeScript
-
 ---
 
 ## Estado del repositorio
