@@ -89,13 +89,25 @@ export function Hero() {
                   Presupuesto vivo · Del ERP a la bitácora de campo
                 </p>
 
-                {/* Dos capas: el texto del h1 es lo planeado (contorno) y el
-                    span superpuesto es lo ejecutado (sólido), recortado a la
-                    altura del avance. El h1 conserva su texto real, así que
-                    el nombre accesible sigue siendo "FORMA" una sola vez. */}
+                {/* Entrada de la frase: el wordmark es la última palabra
+                    ("El control de obra toma FORMA"), así que va pegado al
+                    bloque y con el verbo en ámbar para tender el puente. */}
+                <p className="hero__slogan">
+                  El control de obra <span>toma</span>
+                </p>
+
+                {/* Tres capas sobre el mismo glifo: la extrusión rayada
+                    detrás (el span y sus dos pseudo-elementos dan las tres
+                    líneas del despiece), y encima la cara con contorno duro y
+                    relleno recortado a la altura del avance. Solo la cara
+                    lleva texto expuesto, así que el nombre accesible del h1
+                    sigue siendo "FORMA" una sola vez. */}
                 <div className="hero__mark">
                   <h1 className="hero__title">
-                    FORMA
+                    <span className="hero__title-extrude" aria-hidden="true">
+                      FORMA
+                    </span>
+                    <span className="hero__title-face">FORMA</span>
                     <span className="hero__title-built" aria-hidden="true">
                       FORMA
                     </span>
