@@ -35,6 +35,17 @@ export function Chat() {
   const [texto, setTexto] = useState('');
   const [pensando, setPensando] = useState<AgentId[] | null>(null);
   const finRef = useRef<HTMLDivElement>(null);
+  const cajaRef = useRef<HTMLTextAreaElement>(null);
+
+  /* El compositor arranca en una línea y crece con el texto hasta el tope
+     de .ask__input--grow; a partir de ahí hace scroll interno. Un textarea
+     fijo de dos filas ocupaba el doble de alto del que casi siempre usa. */
+  useEffect(() => {
+    const caja = cajaRef.current;
+    if (!caja) return;
+    caja.style.height = 'auto';
+    caja.style.height = `${caja.scrollHeight}px`;
+  }, [texto]);
 
   useEffect(() => {
     finRef.current?.scrollIntoView({ block: 'end', behavior: 'smooth' });
@@ -181,8 +192,9 @@ export function Chat() {
             </ul>
             <div className="ask">
               <textarea
-                className="ask__input"
-                rows={2}
+                ref={cajaRef}
+                className="ask__input ask__input--grow"
+                rows={1}
                 value={texto}
                 placeholder="¿Qué partidas de acabados están en riesgo este mes y por qué?"
                 onChange={(e) => setTexto(e.target.value)}

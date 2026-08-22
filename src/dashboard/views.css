@@ -421,6 +421,14 @@
   resize: none;
 }
 
+/* Autoajustable: la altura la fija el JS a partir de scrollHeight, así que
+   aquí solo se acota el crecimiento y se desactiva el tirador manual. */
+.ask__input--grow {
+  resize: none;
+  overflow-y: auto;
+  max-height: 8.5rem;
+}
+
 .ask__input:focus {
   outline: none;
   border-color: var(--tech-line);
@@ -434,6 +442,21 @@
 .ask__go {
   flex: none;
   align-self: stretch;
+  justify-content: center;
+}
+
+/* Solo el botón del chat lleva atajo. El kbd sale del flujo y el padding
+   simétrico reserva su hueco, para que la palabra quede centrada en el
+   botón en vez de corrida a la izquierda por el ancho del atajo. */
+.ask__go:has(kbd) {
+  padding-inline: 2.2rem;
+}
+
+.ask__go kbd {
+  position: absolute;
+  right: 0.7rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .chips-row {

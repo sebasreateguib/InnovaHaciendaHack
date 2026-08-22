@@ -204,8 +204,10 @@ export function Hero() {
                   explicar su causa y proyectar el impacto en el margen.
                 </p>
                 <div className="hero__actions">
+                  {/* Ancla a la sección 04, no a la app: el rótulo promete
+                      lo que hay al final del scroll, no una consola real. */}
                   <a className="btn btn--solid" href="#consola">
-                    Abrir consola
+                    Ver el caso Panorama
                   </a>
                   <a className="btn btn--ghost" href="#arquitectura">
                     Ver arquitectura

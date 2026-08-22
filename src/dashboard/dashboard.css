@@ -358,21 +358,14 @@
   color: var(--bone-faint);
 }
 
-.picker__select {
+.picker__name {
   max-width: 20rem;
-  padding: 0.4rem 0.6rem;
-  border: var(--rule);
-  border-radius: var(--r-sm);
-  background: var(--ink-raised);
-  color: var(--bone);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: var(--sans);
   font-size: 0.8125rem;
-  cursor: pointer;
-  transition: border-color var(--fast) var(--ease);
-}
-
-.picker__select:hover {
-  border-color: var(--tech-line);
+  color: var(--bone);
 }
 
 .topbar__stamp {
@@ -820,6 +813,9 @@ kbd {
 
 .vhead__actions {
   display: flex;
+  /* Sin esto el pill se estira a la altura del botón vecino y el radio de
+     999px lo convierte en una cápsula desproporcionada. */
+  align-items: center;
   gap: 0.6rem;
   flex-wrap: wrap;
 }

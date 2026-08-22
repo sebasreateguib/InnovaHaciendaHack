@@ -35,10 +35,6 @@ export function Navbar() {
       </nav>
 
       <div className="nav__aside">
-        <span className="nav__status">
-          <span className="pulse" aria-hidden="true" />
-          Sistemas nominales
-        </span>
         {/* Apunta al panel real, no a la sección que lo ilustra: el prefijo
             `#/` es la frontera entre la landing y la aplicación */}
         <a className="btn btn--solid nav__cta" href="#/panel">

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { Logo } from '../components/Logo';
 import type { ViewId } from './routes';
 import { GRUPOS, VIEWS } from './routes';
-import { AGENTS, PROJECT, PROJECTS } from './data';
+import { AGENTS, PROJECT } from './data';
 
 /* ============================================================
    Armazón del panel
@@ -31,7 +31,6 @@ export function Shell({
 }) {
   const [railOpen, setRailOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
-  const [projectId, setProjectId] = useState(PROJECT.id);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -130,20 +129,14 @@ export function Shell({
             <span aria-hidden="true" />
           </button>
 
-          <label className="picker">
+          {/* Un solo proyecto en la maqueta: un select de una opción sería
+              un control que no controla nada. Vuelve cuando haya cartera. */}
+          <div className="picker">
             <span className="picker__label">Proyecto</span>
-            <select
-              className="picker__select"
-              value={projectId}
-              onChange={(e) => setProjectId(e.target.value)}
-            >
-              {PROJECTS.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name} · {p.detail}
-                </option>
-              ))}
-            </select>
-          </label>
+            <span className="picker__name">
+              {PROJECT.name} · {PROJECT.detail}
+            </span>
+          </div>
 
           <p className="topbar__stamp mono-num">Corte {PROJECT.cutoff}</p>
 

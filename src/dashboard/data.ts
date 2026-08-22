@@ -38,12 +38,6 @@ export const PROJECT = {
   margenProyectado: 11.6,
 };
 
-export const PROJECTS = [
-  { id: 'PAN-10', name: 'Edificio Panorama', detail: '10 pisos · en obra' },
-  { id: 'MRD-04', name: 'Conjunto Miraflores', detail: '4 torres · en obra' },
-  { id: 'SRC-01', name: 'Centro Surco', detail: 'retail · cierre' },
-];
-
 /* ---- Valor ganado en el corte -------------------------------
    GET /api/v1/proyectos/:id/evm — Agente Cuantitativo (SQL) */
 

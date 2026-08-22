@@ -5,7 +5,7 @@ import { Architecture } from './components/Architecture'
 import { Triggers } from './components/Triggers'
 import { RiskConsole } from './components/RiskConsole'
 import { Stack } from './components/Stack'
-import { Demo } from './components/Demo'
+import { Outcome } from './components/Outcome'
 import { Logo } from './components/Logo'
 import { useReveal } from './hooks/useReveal'
 import './app.css'
@@ -16,7 +16,7 @@ const SECTIONS = [
   { label: 'Triggers', href: '#triggers' },
   { label: 'La consola', href: '#consola' },
   { label: 'Stack', href: '#stack' },
-  { label: 'Plan de ejecución', href: '#demo' },
+  { label: 'El resultado', href: '#resultado' },
 ]
 
 const SPECS = [
@@ -38,7 +38,7 @@ export function Landing() {
         <Triggers />
         <RiskConsole />
         <Stack />
-        <Demo />
+        <Outcome />
       </main>
       <footer className="foot">
         <div className="foot__top">
