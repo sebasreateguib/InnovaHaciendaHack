@@ -1,4 +1,4 @@
-# FORMA
+<h1 align="left"><img src="public/favicon.svg" width="36" height="36" alt="FORMA logo" style="vertical-align:middle; margin-right:10px;"> FORMA</h1>
 
 **F**inancial & **O**perations **R**isk **M**anagement **A**ssistant — CFO virtual y auditor autónomo de obras.
 
