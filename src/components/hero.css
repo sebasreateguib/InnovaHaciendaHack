@@ -784,4 +784,10 @@
   .hero__scroll-cue {
     display: none;
   }
+
+  /* A un ancho de móvil la línea y el wordmark casi se tocan: el remate se
+     lee mejor con un respiro entre la frase y el bloque. */
+  .hero__slogan {
+    margin-bottom: 0.5em;
+  }
 }
